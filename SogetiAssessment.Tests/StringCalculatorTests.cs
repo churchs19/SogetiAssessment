@@ -143,5 +143,15 @@ namespace SogetiAssessment.Tests
             var result = calculator.Add(input);
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod]
+        public void MultipleDelimitersOfArbitraryLength()
+        {
+            string input = "//[*%*][%***]\n1*%*2%***3";
+            int expected = 6;
+            var result = calculator.Add(input);
+            Assert.AreEqual(expected, result);
+
+        }
     }
 }

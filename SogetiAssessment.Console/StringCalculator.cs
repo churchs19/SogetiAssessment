@@ -10,16 +10,18 @@ namespace SogetiAssessment.Console
     {
         public int Add (string numbers)
         {
-            char[] delimiters = new char[] { ',', '\n' };
+            string[] delimiters = new string[] { ",", "\n" };
             if(numbers.StartsWith("//"))
             {
-                var delimiter = numbers[numbers.IndexOf('\n') - 1];
-                delimiters = new char[] { delimiter };
+                string delimiter = numbers.Substring(2, numbers.IndexOf('\n') - 2);
+                if (delimiter.StartsWith("[")) delimiter = delimiter.Substring(1, delimiter.Length - 2);
+                delimiters = delimiter.Split(new string[] { "][" }, StringSplitOptions.RemoveEmptyEntries);
+                numbers = numbers.Substring(numbers.IndexOf('\n') + 1);
             }
             int result = 0;
             if (String.IsNullOrEmpty(numbers)) return result;
 
-            var numberArray = numbers.Split(delimiters);
+            var numberArray = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
             List<string> negatives = new List<string>();
             foreach(var num in numberArray)
             {
